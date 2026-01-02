@@ -88,22 +88,23 @@ Manifold, 流刑
 >    * 定义 
 >        * 是 Python 中一组内置的、以双下划线开头和双下划线结尾（格式：__xxx__）的特殊方法，也被称为「dunder methods」
 
-![Sklearn学习路线图](assets\imgs\SkLearn_path.png "Sklearn学习路线图")
-
-<img src="assets\imgs\SkLearn_path.png" alt="Sklearn学习路线图" title="网站logo" width="200" height="auto" align="center">
+![Sklearn学习路线图](../assets/imgs/SkLearn_path.png "Sklearn学习路线图")
 
 
-![](assets\imgs\SVM_challenge.png "SVM挑战")
+
+
+![](../assets/imgs/SVM_challenge.png "SVM挑战")
 
 
 ## 神经网络
 * 来源介绍
     * 神经科学 -> 数学和工程学
 
-![](assets\imgs\Neural_networks.png "分层神经网络")
+![](../assets/imgs/Neural_networks.png "分层神经网络")
 
 * back propagation 反向传播
     * 核心：计算图
 
-![](assets\imgs\back_propagation.png)
+![](../assets/imgs/back_propagation.png "反向传导机制")
 
+- [ ] 下载pytorch
