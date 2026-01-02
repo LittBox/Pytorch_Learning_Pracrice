@@ -53,8 +53,10 @@
 4. 验证安装
     ```bash
     python -c "import torch; print(torch.__version__); print(torch.cuda.is_available())"
+    #-c 是 Python 命令行的选项，意思是直接执行后面给出的字符串代码（不需要新建 .py 文件）。
     ```
-    -c 是 Python 命令行的选项，意思是直接执行后面给出的字符串代码（不需要新建 .py 文件）。
+    
+    
     代码输出结果
     ![](../assets/imgs/validateOut.png)
     PyTorch 安装成功了（版本 2.5.1）。torch.cuda.is_available() = False 只说明 CUDA 不可用
@@ -68,5 +70,34 @@
 
     * 即便 CUDA 不可用，PyTorch 仍可用（CPU 版本），学习时完全够用，只是计算速度慢。
     * 如果要启用 GPU，需要系统有 NVIDIA 显卡 + 官方驱动，且驱动版本支持对应 CUDA 版本。
+
+    快速诊断：
+    ```bash
+    # 查看系统是否有 NVIDIA GPU 及驱动
+    nvidia-smi
+    ```  
+    输出信息
+    ![alt text](../assets/imgs/nvidiaOutput.png)
+    说明硬件和驱动都装了，但 PyTorch 与 CUDA 可能版本不匹配。(若报错"找不到命令"或"NVIDIA 驱动程序失败"，说明没装驱动或没有 GPU。)
+
+    输出中找到 "CUDA Version: X.X"（这是驱动支持的最高 CUDA 版本），例如 12.1。
+
+    ```bash
+    # 清理 conda 缓存
+    conda clean --all --yes
+    # 使用 cudatoolkit 11.8（通常与新驱动兼容）
+    conda install pytorch torchvision torchaudio cudatoolkit=11.8 -c pytorch -c nvidia -y
+    #-y 表示“自动回答 yes”，用来跳过交互确认，直接接受所有提示
+    ```
+    频道顺序：
+
+    -c pytorch -c nvidia 告诉 conda 先在 pytorch 查找，再在 nvidia，最后用 defaults 等默认源（conda 按给定顺序匹配包）。
+
+    通常来源：
+    * pytorch、torchvision、torchaudio：通常来自 pytorch channel。
+    * pytorch-cuda=12.1：通常来自 nvidia channel（也可能在其它 channel 有镜像，取决于可用性）。
+  
+    结果
+    ![](../assets/imgs/reinstallCudaOutput.png)
 ### 项目结构建议
 ![](../assets/imgs/structure_advice.png "学习项目结构建议")
